@@ -162,10 +162,10 @@
 .heroMedia {
   position: relative;
   width: 100%;
-  /* Tall enough to balance the headline beside it without pushing the
-     section past one screen */
-  aspect-ratio: 4 / 5;
-  max-height: 62svh;
+  /* The photo's own shape. A group shot has people at both edges, so any
+     other ratio under `cover` crops someone out — and no height cap, which
+     would squash the box off this ratio and crop them again. */
+  aspect-ratio: 16 / 9;
 }
 
 .heroMediaFrame {
@@ -413,11 +413,9 @@
     flex-direction: column;
   }
 
-  /* The photo goes above the copy and gives up its portrait crop */
+  /* The photo goes above the copy, still whole */
   .heroMedia {
     order: -1;
-    aspect-ratio: 16 / 10;
-    max-height: 38svh;
   }
 
   .socialList {

@@ -189,8 +189,7 @@ export default function HomeView() {
             </motion.div>
           </div>
 
-          {/* Placeholder art. Swap in a real photo, and a descriptive alt,
-              when one is available. */}
+          {/* The group photo, shown whole: the frame takes its 16:9 shape */}
           <motion.div
             className={styles.heroMedia}
             initial={{ opacity: 0, y: 28 }}
@@ -200,7 +199,7 @@ export default function HomeView() {
             <div className={styles.heroMediaFrame}>
               <Image
                 src={asset("/hero-placeholder.jpg")}
-                alt=""
+                alt="ASA members gathered at a meeting in a Texas State classroom"
                 fill
                 priority
                 sizes="(max-width: 900px) 100vw, 45vw"
