@@ -21,17 +21,28 @@ export default function ActionButton({
      reader — a form the visitor is halfway through should never be able to
      eat their place on the page */
   external = false,
+  /* A file to save rather than a page to visit — stays in this tab */
+  download = false,
   className,
 }: {
   href: string;
   children: React.ReactNode;
   variant?: "solid" | "ghost";
   external?: boolean;
+  download?: boolean;
   className?: string;
 }) {
   const cls = [styles.button, styles[variant], className].filter(Boolean).join(" ");
 
   const inner = <span className={styles.label}>{children}</span>;
+
+  if (download) {
+    return (
+      <a className={cls} href={href} download>
+        {inner}
+      </a>
+    );
+  }
 
   if (external) {
     return (

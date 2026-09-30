@@ -16,6 +16,7 @@ import Reveal from "@/components/ui/Reveal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { asset } from "@/lib/asset";
 import { CONTACT_EMAIL_HREF, INSTAGRAM_URL, JOIN_FORM_URL, LINKEDIN_URL } from "@/lib/links";
+import { NEXT_MEETING, formatDate } from "@/lib/meeting";
 import styles from "./HomeView.module.css";
 
 /* ────────────────────────────────────────────────────────
@@ -43,7 +44,7 @@ const DOORS: BentoItem[] = [
   },
   {
     word: "Events",
-    tail: "First meeting, September 16.",
+    tail: `Next meeting, ${formatDate(NEXT_MEETING)}.`,
     Icon: CalendarIcon,
     className: styles.tileC,
     from: { x: 44 },

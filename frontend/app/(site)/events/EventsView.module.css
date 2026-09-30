@@ -1,7 +1,8 @@
 /* ═══════════════════════════════════════════════════════
-   Events Page – events.module.css
+   Events Page – EventsView.module.css
 
-   One screen, and the same system as the rest of the site: the tone
+   The next meeting, the semester around it, and what happens at them —
+   in the same system as the rest of the site: the tone
    supplies the ground and the accent, `--stack` supplies the rhythm, and
    nothing here names a colour.
    ═══════════════════════════════════════════════════════ */
@@ -25,7 +26,7 @@
   align-items: center;
 }
 
-/* The pine screen carries a wash; the paper one below it does not need one */
+/* The pine screens carry a wash; the paper one between them does not */
 .stage:first-child {
   /* The ridgeline reaches past the section on a slice crop */
   overflow: hidden;
@@ -36,8 +37,18 @@
   );
 }
 
+/* The closing screen's wash comes from the other corner, so the page
+   does not end on a copy of how it began */
+.closing {
+  background-image: radial-gradient(
+    100% 80% at 92% 0%,
+    rgba(224, 165, 72, 0.1) 0%,
+    transparent 60%
+  );
+}
+
 /* This screen's crop of the shared ridgeline. Held back from the hero's
-   0.32: the calendar motif sits on the right, exactly where the tall front
+   0.32: the calendar sits on the right, exactly where the tall front
    ridges land, and the two read as noise if the field is given equal
    weight. */
 .plotLayer {
@@ -168,6 +179,165 @@
   gap: 0.85rem;
 }
 
+/* ── The hero's month ───────────────────────────────── */
+.heroMonth {
+  justify-self: end;
+  width: 100%;
+  max-width: 440px;
+}
+
+/* The ridgeline runs behind it; frosting the card keeps the dates on top
+   of the field rather than tangled in it */
+.heroMonth figure {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* ── The semester ───────────────────────────────────── */
+
+/* Heading and list side by side, the months across the full measure
+   beneath them */
+.semester {
+  align-items: start;
+  row-gap: clamp(2.5rem, 6vh, 4rem);
+}
+
+.months,
+.legend {
+  grid-column: 1 / -1;
+}
+
+.months {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: clamp(0.8rem, 1.5vw, 1.25rem);
+}
+
+.schedule {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto 4.5rem;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--ink-4);
+}
+
+.row:first-child {
+  border-top: 1px solid var(--ink-4);
+}
+
+.rowIndex {
+  font-family: var(--font-mono);
+  font-size: var(--type-meta);
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+}
+
+.rowDate {
+  font-family: var(--font-body);
+  font-size: clamp(1.02rem, 1.35vw, 1.2rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink-1);
+}
+
+.rowStatus {
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: var(--type-meta);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink-3);
+}
+
+.rowAdd {
+  justify-self: end;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  transition: color 0.25s ease;
+}
+
+a.rowAdd:hover {
+  color: var(--accent);
+}
+
+/* Held: kept on the list, stepped back from it */
+.row_done .rowDate {
+  color: var(--ink-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--ink-4);
+}
+
+/* The one that matters now reads as the row, not just its tag */
+.row_next .rowDate {
+  font-weight: 600;
+}
+
+.row_next .rowStatus {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.row_next .rowAdd {
+  color: var(--accent);
+}
+
+.row_upcoming .rowStatus {
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+  color: var(--accent);
+}
+
+/* ── The key to the marks ───────────────────────────── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.75rem;
+  margin-top: calc(var(--stack) * -0.6);
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-meta);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.swatch {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 999px;
+}
+
+.swatchDone {
+  background: var(--ink-4);
+}
+
+.swatchNext {
+  background: var(--accent);
+}
+
+.swatchUpcoming {
+  box-shadow: inset 0 0 0 1.5px var(--accent-line);
+}
+
 @media (max-width: 900px) {
   /*
      A phone scrolls, it does not page. Holding every section to a full
@@ -203,5 +373,28 @@
   .actions {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .heroMonth {
+    justify-self: stretch;
+    max-width: none;
+  }
+
+  .row {
+    grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+    gap: 0.75rem;
+  }
+
+  /* On a phone the tag goes; the row's weight and the Add link say it */
+  .rowStatus {
+    display: none;
+  }
+
+  .row_next .rowStatus {
+    display: inline;
+  }
+
+  .row_next {
+    grid-template-columns: 1.75rem minmax(0, 1fr) auto auto;
   }
 }

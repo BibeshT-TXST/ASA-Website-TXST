@@ -26,6 +26,7 @@ rooted at this folder — `@/components/ui/ActionButton`, `@/lib/links`.
 app/
 ├── layout.tsx              root layout: fonts, site metadata, MotionProvider
 ├── globals.css             design tokens, the two tones, base reset
+├── meetings.ics/route.ts   /meetings.ics -> the schedule as a static calendar file
 └── (site)/                 route group — shared chrome, adds nothing to URLs
     ├── layout.tsx          Header + Footer, applied to every page below
     ├── page.tsx            /             -> HomeView
@@ -130,12 +131,14 @@ and closing sections have their own.
 | File | What it holds |
 | --- | --- |
 | [lib/links.ts](lib/links.ts) | Every outbound URL: join form, Instagram, LinkedIn, AMSTAT, contact email |
-| [lib/meeting.ts](lib/meeting.ts) | The meeting's day, time, place, cadence, and its Google Calendar link |
+| [lib/meeting.ts](lib/meeting.ts) | The meeting's time and place, the semester's dates, which one is next, and the calendar links and `.ics` feed built from them |
 | [lib/asset.ts](lib/asset.ts) | Prefixes a `public/` path with the deployment base path |
 | [lib/random.ts](lib/random.ts) | Seeded PRNG for hydration-safe generated artwork |
 
 **Editing meeting details or a social link is a one-line change in `lib/`** —
-never in a view. That is the whole point of the folder.
+never in a view. That is the whole point of the folder. After each meeting,
+move `NEXT_MEETING` on to the next date: the events page, the home tile and
+every "held / next / coming up" mark follow from it.
 
 ## Static export and the base path
 
